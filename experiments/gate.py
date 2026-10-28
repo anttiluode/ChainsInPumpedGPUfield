@@ -13,7 +13,7 @@ Controls (same seeds):
   detuned    pump moved to 2*Omega = 0.152 so no pair of letters sums to it
   medium     the pump drives the field's mass term instead of the monomers' ears
 
-    python experiments/gate.py --seeds 3 --steps 30000
+    python experiments/gate.py --seeds 3 --round2
 """
 import argparse, json, os, sys, time
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -85,9 +85,9 @@ def summarize(events, copies):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--seeds", type=int, default=3)
-    ap.add_argument("--steps", type=int, default=30000)
+    ap.add_argument("--steps", type=int, default=40000)
     ap.add_argument("--N", type=int, default=96)
-    ap.add_argument("--n_each", type=int, default=60)
+    ap.add_argument("--n_each", type=int, default=30)
     ap.add_argument("--arms", nargs="+", default=["receiver", "pump_off", "detuned", "medium"])
     ap.add_argument("--round2", action="store_true")
     ap.add_argument("--held_min", type=float, default=None)

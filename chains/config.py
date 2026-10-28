@@ -51,12 +51,12 @@ class Config:
     k_core: float = 0.05
 
     # ---- backbone bonds (type-blind, two per monomer: a chain has two ends) ----------
-    d0: float = 3.0               # backbone spacing
+    d0: float = 3.6               # backbone spacing (well clear of the ~2.2 pairing distance)
     k_bond: float = 0.05
     k_bend: float = 0.02          # spring to second neighbours keeps chains straight
     held_tau: float = 100.0       # steps over which "being held" is averaged
-    held_min: float = 0.025        # both monomers must be held at least this much to link
-    lig_window: float = 0.4       # two free ends at |r - d0| < window score +1 per check;
+    held_min: float = 0.05         # both monomers must be held at least this much to link
+    lig_window: float = 0.3       # two free ends at |r - d0| < window score +1 per check;
     lig_decay: float = 0.97       # the score decays by this factor every check (memory ~330 steps)
     lig_score: float = 6.0        # once the score passes this they may link ...
     p_lig: float = 0.1            # ... with this probability per check.

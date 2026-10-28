@@ -305,7 +305,7 @@ class World:
         points and drifts off; neighbours held on a template keep returning to the spacing.
         Letters are never looked at."""
         cfg = self.cfg
-        free = (self.nb < 0).any(1) & (self.held_by > cfg.held_min)
+        free = (self.nb < 0).any(1) & (self.held_by > cfg.held_min) & (~self.pinned)
         fi = torch.nonzero(free).flatten()
         if fi.numel() < 2:
             self.held = {}

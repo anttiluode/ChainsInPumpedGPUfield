@@ -51,8 +51,9 @@ def test_ligation_is_type_blind_and_respects_two_ends():
     cfg = Config(N=32, device="cpu", kT=0.0, p_lig=1.0, lig_every=1, lig_score=4, pump_on=False, held_min=-1.0)
     w = World(cfg)
     # three identical letters in a row at the backbone spacing -> one chain of 3
-    w.add_monomers([0, 0, 0], pos=[(10, 16), (13, 16), (16, 16)])
-    w.pinned[:] = True
+    w.add_monomers([0, 0, 0], pos=[(10, 16), (13.6, 16), (17.2, 16)])
+    w.mobility_off = True
+    cfg.mobility = 0.0
     for _ in range(12):
         w.step()
     assert sorted(len(p) for p in w.chains()) == [3]
@@ -62,8 +63,8 @@ def test_ligation_is_type_blind_and_respects_two_ends():
 def test_passing_encounter_does_not_ligate():
     cfg = Config(N=32, device="cpu", kT=0.0, p_lig=1.0, lig_every=1, lig_score=30, pump_on=False, held_min=-1.0)
     w = World(cfg)
-    w.add_monomers([0, 1], pos=[(10, 16), (13, 16)])
-    w.pinned[:] = True
+    w.add_monomers([0, 1], pos=[(10, 16), (13.6, 16)])
+    cfg.mobility = 0.0
     for _ in range(20):          # shorter than the hold time
         w.step()
     assert w.ligations == 0
@@ -73,8 +74,8 @@ def test_unheld_monomers_never_link():
     # pump off: nobody is held, so even a perfectly placed pair stays apart
     cfg = Config(N=32, device="cpu", kT=0.0, p_lig=1.0, lig_every=1, lig_score=2, pump_on=False)
     w = World(cfg)
-    w.add_monomers([0, 3], pos=[(10, 16), (13, 16)])
-    w.pinned[:] = True
+    w.add_monomers([0, 3], pos=[(10, 16), (13.6, 16)])
+    cfg.mobility = 0.0
     for _ in range(200):
         w.step()
     assert w.ligations == 0
