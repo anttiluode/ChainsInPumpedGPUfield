@@ -12,6 +12,7 @@ from collections import Counter
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import numpy as np
 from chains import Config, World
+from chains.analysis import complement_map, duplex_report
 
 
 def run(cfg, n_each, steps):
@@ -29,7 +30,8 @@ def run(cfg, n_each, steps):
     for s in chains:
         for a, b in zip(s[:-1], s[1:]):
             bonds["".join(sorted(a + b))] += 1
-    return chains, bonds
+    w.duplex = duplex_report(w, complement_map(w.cfg))
+    return chains, bonds, w.duplex
 
 
 def main():
@@ -38,22 +40,26 @@ def main():
     ap.add_argument("--steps", type=int, default=40000)
     ap.add_argument("--N", type=int, default=96)
     ap.add_argument("--n_each", type=int, default=60)
+    ap.add_argument("--held_min", type=float, default=None)
+    ap.add_argument("--arms", nargs="+", default=["pump_on", "pump_off"])
     ap.add_argument("--out", default="results/soup.json")
     a = ap.parse_args()
     os.makedirs(os.path.dirname(a.out) or ".", exist_ok=True)
     res = {}
-    for arm in ["pump_on", "pump_off"]:
+    for arm in a.arms:
         res[arm] = []
         for s in range(a.seeds):
             cfg = Config(N=a.N, seed=s, pump_on=(arm == "pump_on"))
-            chains, bonds = run(cfg, a.n_each, a.steps)
+            if a.held_min is not None:
+                cfg.held_min = a.held_min
+            chains, bonds, dup = run(cfg, a.n_each, a.steps)
             lens = [len(c) for c in chains]
             r = {"seed": s, "chains": len(chains), "longest": max(lens, default=0),
                  "monomers_in_chains": int(sum(lens)), "bond_letters": dict(bonds),
-                 "sequences": sorted(chains, key=len, reverse=True)[:30]}
+                 "duplex": dup, "sequences": sorted(chains, key=len, reverse=True)[:30]}
             res[arm].append(r)
             print(f"{arm} seed {s}: {len(chains)} chains, longest {r['longest']}, "
-                  f"{r['monomers_in_chains']} monomers in chains, bonds {dict(bonds)}", flush=True)
+                  f"{r['monomers_in_chains']} monomers in chains, bonds {dict(bonds)}, duplex {dup}", flush=True)
             json.dump(res, open(a.out, "w"), indent=1)
 
 

@@ -90,6 +90,7 @@ def main():
     ap.add_argument("--n_each", type=int, default=60)
     ap.add_argument("--arms", nargs="+", default=["receiver", "pump_off", "detuned", "medium"])
     ap.add_argument("--round2", action="store_true")
+    ap.add_argument("--held_min", type=float, default=None)
     ap.add_argument("--out", default="results/gate.json")
     a = ap.parse_args()
     os.makedirs(os.path.dirname(a.out) or ".", exist_ok=True)
@@ -98,6 +99,8 @@ def main():
         res[arm] = []
         for s in range(a.seeds):
             cfg = arm_config(arm, s, a.N)
+            if a.held_min is not None:
+                cfg.held_min = a.held_min
             w, ev, cp, soup = run_round(cfg, TEMPLATE, a.n_each, a.steps, label=f"{arm}/s{s}")
             r = summarize(ev, cp)
             r["seed"] = s
@@ -110,6 +113,8 @@ def main():
                 tmpl2 = best["seq"]
                 if len(tmpl2) >= 3:
                     cfg2 = arm_config(arm, 100 + s, a.N)
+                    if a.held_min is not None:
+                        cfg2.held_min = a.held_min
                     _, ev2, cp2, _ = run_round(cfg2, tmpl2, a.n_each, a.steps, label=f"round2/s{s}")
                     r2 = summarize(ev2, cp2)
                     r2["template"] = tmpl2
