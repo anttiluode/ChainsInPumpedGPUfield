@@ -1,55 +1,475 @@
 {
  "receiver": [
   {
-   "site_events": 13,
-   "site_correct": 11,
-   "site_fidelity": 0.8461538461538461,
-   "copies": 0,
-   "copy_monomers": 0,
-   "copy_matches": 0,
-   "copy_fidelity": null,
-   "copy_seqs": [],
-   "seed": 0,
-   "soup_chains": 4,
-   "soup_len_max": 11,
-   "soup_seqs": [
-    "AAAAAATTTAC",
-    "AATAATTAT",
-    "TTAAAT",
-    "TTAA"
+   "ligations": 87,
+   "site_events": 44,
+   "site_correct": 25,
+   "site_fidelity": 0.5681818181818182,
+   "pair_counts": {
+    "T->A": 13,
+    "G->C": 4,
+    "A->G": 3,
+    "C->G": 7,
+    "A->A": 2,
+    "T->C": 2,
+    "C->C": 4,
+    "G->G": 3,
+    "G->A": 1,
+    "A->C": 1,
+    "A->T": 1,
+    "C->T": 3
+   },
+   "ordered_copies": [
+    {
+     "copy": "GAA",
+     "against": "ATT",
+     "complementary": 2,
+     "len": 3
+    },
+    {
+     "copy": "CGG",
+     "against": "GAC",
+     "complementary": 2,
+     "len": 3
+    },
+    {
+     "copy": "AA",
+     "against": "TT",
+     "complementary": 2,
+     "len": 2
+    },
+    {
+     "copy": "GT",
+     "against": "GA",
+     "complementary": 1,
+     "len": 2
+    },
+    {
+     "copy": "CG",
+     "against": "CG",
+     "complementary": 0,
+     "len": 2
+    },
+    {
+     "copy": "CA",
+     "against": "TT",
+     "complementary": 1,
+     "len": 2
+    },
+    {
+     "copy": "GG",
+     "against": "CC",
+     "complementary": 2,
+     "len": 2
+    },
+    {
+     "copy": "GT",
+     "against": "CC",
+     "complementary": 1,
+     "len": 2
+    },
+    {
+     "copy": "AA",
+     "against": "TA",
+     "complementary": 1,
+     "len": 2
+    },
+    {
+     "copy": "CC",
+     "against": "CA",
+     "complementary": 0,
+     "len": 2
+    },
+    {
+     "copy": "GA",
+     "against": "AT",
+     "complementary": 1,
+     "len": 2
+    }
    ],
+   "made_at_template": [
+    "TGGGTGAACCGGAGGGCGCGCGCCGCCGTCGGGT",
+    "GGGGTCTAAACCAAT",
+    "TTGTGGTGGGTT",
+    "CGAAAAAA",
+    "GCCGCACA"
+   ],
+   "soup_chains": 12,
+   "soup_len_max": 34,
    "duplex": {
-    "pairs": 8,
-    "complementary": 6,
-    "fraction": 0.75,
-    "chance": 0.46875
+    "pairs": 30,
+    "complementary": 11,
+    "fraction": 0.36666666666666664,
+    "chance": 0.33444444444444443
+   },
+   "seed": 0,
+   "round2": {
+    "ligations": 68,
+    "site_events": 22,
+    "site_correct": 3,
+    "site_fidelity": 0.13636363636363635,
+    "pair_counts": {
+     "G->C": 2,
+     "G->A": 4,
+     "A->A": 1,
+     "T->A": 1,
+     "C->C": 3,
+     "C->A": 10,
+     "A->C": 1
+    },
+    "ordered_copies": [
+     {
+      "copy": "AA",
+      "against": "CC",
+      "complementary": 0,
+      "len": 2
+     },
+     {
+      "copy": "AA",
+      "against": "CC",
+      "complementary": 0,
+      "len": 2
+     },
+     {
+      "copy": "AC",
+      "against": "GG",
+      "complementary": 1,
+      "len": 2
+     },
+     {
+      "copy": "CC",
+      "against": "AC",
+      "complementary": 0,
+      "len": 2
+     }
+    ],
+    "made_at_template": [
+     "GAAACAACA",
+     "AAACAC",
+     "AACCA",
+     "AAA"
+    ],
+    "soup_chains": 19,
+    "soup_len_max": 9,
+    "duplex": {
+     "pairs": 43,
+     "complementary": 19,
+     "fraction": 0.4418604651162791,
+     "chance": 0.2406706327744727
+    },
+    "template": "TGGGTGAACCGGAGGGCGCGCGCCGCCGTCGGGT"
    }
   },
   {
-   "site_events": 17,
-   "site_correct": 11,
-   "site_fidelity": 0.6470588235294118,
-   "copies": 0,
-   "copy_monomers": 0,
-   "copy_matches": 0,
-   "copy_fidelity": null,
-   "copy_seqs": [],
-   "seed": 1,
-   "soup_chains": 6,
-   "soup_len_max": 8,
-   "soup_seqs": [
-    "TTTTTCCT",
-    "TTATCAT",
-    "CCTCCC",
-    "TCC",
-    "AT",
-    "AA"
+   "ligations": 47,
+   "site_events": 29,
+   "site_correct": 17,
+   "site_fidelity": 0.5862068965517241,
+   "pair_counts": {
+    "T->A": 7,
+    "C->A": 3,
+    "A->C": 2,
+    "G->C": 6,
+    "A->G": 2,
+    "G->A": 2,
+    "A->A": 1,
+    "C->C": 1,
+    "C->G": 4,
+    "G->G": 1
+   },
+   "ordered_copies": [
+    {
+     "copy": "CCGAA",
+     "against": "AGCTT",
+     "complementary": 4,
+     "len": 5
+    },
+    {
+     "copy": "AA",
+     "against": "TC",
+     "complementary": 1,
+     "len": 2
+    },
+    {
+     "copy": "AC",
+     "against": "GG",
+     "complementary": 1,
+     "len": 2
+    },
+    {
+     "copy": "AC",
+     "against": "GG",
+     "complementary": 1,
+     "len": 2
+    },
+    {
+     "copy": "CG",
+     "against": "GG",
+     "complementary": 1,
+     "len": 2
+    },
+    {
+     "copy": "AA",
+     "against": "CC",
+     "complementary": 0,
+     "len": 2
+    },
+    {
+     "copy": "GG",
+     "against": "CA",
+     "complementary": 1,
+     "len": 2
+    },
+    {
+     "copy": "CC",
+     "against": "AG",
+     "complementary": 1,
+     "len": 2
+    },
+    {
+     "copy": "AA",
+     "against": "TT",
+     "complementary": 2,
+     "len": 2
+    },
+    {
+     "copy": "AG",
+     "against": "AC",
+     "complementary": 1,
+     "len": 2
+    }
    ],
+   "made_at_template": [
+    "GCCGAAA",
+    "GGCCC",
+    "ACAC",
+    "AACG",
+    "AAAG",
+    "AAA",
+    "CG"
+   ],
+   "soup_chains": 12,
+   "soup_len_max": 15,
    "duplex": {
-    "pairs": 8,
-    "complementary": 2,
-    "fraction": 0.25,
-    "chance": 0.046875
+    "pairs": 21,
+    "complementary": 13,
+    "fraction": 0.6190476190476191,
+    "chance": 0.24943310657596374
+   },
+   "seed": 1,
+   "round2": {
+    "ligations": 38,
+    "site_events": 40,
+    "site_correct": 15,
+    "site_fidelity": 0.375,
+    "pair_counts": {
+     "A->A": 3,
+     "A->C": 4,
+     "G->A": 2,
+     "C->C": 3,
+     "A->G": 9,
+     "G->C": 3,
+     "C->A": 1,
+     "C->G": 12,
+     "G->G": 3
+    },
+    "ordered_copies": [
+     {
+      "copy": "GCC",
+      "against": "GAA",
+      "complementary": 0,
+      "len": 3
+     },
+     {
+      "copy": "AC",
+      "against": "CG",
+      "complementary": 1,
+      "len": 2
+     },
+     {
+      "copy": "AG",
+      "against": "AA",
+      "complementary": 0,
+      "len": 2
+     },
+     {
+      "copy": "GG",
+      "against": "CC",
+      "complementary": 2,
+      "len": 2
+     },
+     {
+      "copy": "GG",
+      "against": "CC",
+      "complementary": 2,
+      "len": 2
+     },
+     {
+      "copy": "GG",
+      "against": "AA",
+      "complementary": 0,
+      "len": 2
+     },
+     {
+      "copy": "AA",
+      "against": "GA",
+      "complementary": 0,
+      "len": 2
+     },
+     {
+      "copy": "GG",
+      "against": "CC",
+      "complementary": 2,
+      "len": 2
+     },
+     {
+      "copy": "GG",
+      "against": "GC",
+      "complementary": 1,
+      "len": 2
+     },
+     {
+      "copy": "AG",
+      "against": "AA",
+      "complementary": 0,
+      "len": 2
+     }
+    ],
+    "made_at_template": [
+     "GACCAGAGGGGGGGGG",
+     "GGGAACCGG",
+     "GCGCCGC",
+     "GGCCAGG",
+     "GG"
+    ],
+    "soup_chains": 7,
+    "soup_len_max": 16,
+    "duplex": {
+     "pairs": 0
+    },
+    "template": "GCCGAAA"
+   }
+  },
+  {
+   "ligations": 28,
+   "site_events": 29,
+   "site_correct": 18,
+   "site_fidelity": 0.6206896551724138,
+   "pair_counts": {
+    "T->A": 8,
+    "A->C": 1,
+    "G->C": 6,
+    "G->A": 3,
+    "A->G": 2,
+    "C->A": 2,
+    "C->G": 4,
+    "C->C": 2,
+    "A->A": 1
+   },
+   "ordered_copies": [
+    {
+     "copy": "AAAC",
+     "against": "TTAC",
+     "complementary": 2,
+     "len": 4
+    },
+    {
+     "copy": "GAA",
+     "against": "CTT",
+     "complementary": 3,
+     "len": 3
+    },
+    {
+     "copy": "GC",
+     "against": "AG",
+     "complementary": 1,
+     "len": 2
+    },
+    {
+     "copy": "GC",
+     "against": "AG",
+     "complementary": 1,
+     "len": 2
+    },
+    {
+     "copy": "AA",
+     "against": "CT",
+     "complementary": 1,
+     "len": 2
+    },
+    {
+     "copy": "CC",
+     "against": "GA",
+     "complementary": 1,
+     "len": 2
+    },
+    {
+     "copy": "CC",
+     "against": "GC",
+     "complementary": 1,
+     "len": 2
+    },
+    {
+     "copy": "AA",
+     "against": "CT",
+     "complementary": 1,
+     "len": 2
+    }
+   ],
+   "made_at_template": [
+    "ACCA",
+    "GAAA",
+    "AAAC",
+    "CGGG",
+    "GCC",
+    "AAA",
+    "GGG",
+    "AAA",
+    "GC",
+    "CC"
+   ],
+   "soup_chains": 11,
+   "soup_len_max": 7,
+   "duplex": {
+    "pairs": 11,
+    "complementary": 7,
+    "fraction": 0.6363636363636364,
+    "chance": 0.33471074380165294
+   },
+   "seed": 2,
+   "round2": {
+    "ligations": 6,
+    "site_events": 8,
+    "site_correct": 0,
+    "site_fidelity": 0.0,
+    "pair_counts": {
+     "C->C": 6,
+     "C->A": 2
+    },
+    "ordered_copies": [
+     {
+      "copy": "CC",
+      "against": "CC",
+      "complementary": 0,
+      "len": 2
+     },
+     {
+      "copy": "CC",
+      "against": "CC",
+      "complementary": 0,
+      "len": 2
+     }
+    ],
+    "made_at_template": [
+     "ACCAC",
+     "CCC"
+    ],
+    "soup_chains": 2,
+    "soup_len_max": 5,
+    "duplex": {
+     "pairs": 0
+    },
+    "template": "ACCA"
    }
   }
  ]

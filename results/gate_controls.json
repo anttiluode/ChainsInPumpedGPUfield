@@ -1,57 +1,280 @@
 {
- "detuned": [
+ "pump_off": [
   {
-   "site_events": 19,
-   "site_correct": 13,
-   "site_fidelity": 0.6842105263157895,
-   "copies": 0,
-   "copy_monomers": 0,
-   "copy_matches": 0,
-   "copy_fidelity": null,
-   "copy_seqs": [],
-   "seed": 0,
-   "soup_chains": 10,
-   "soup_len_max": 34,
-   "soup_seqs": [
-    "TGTTTGGGCCGGGCCCCCATTTTCAACCTGTGGT",
-    "TTTTGTGGGGGTGGTGTGTGTGT",
-    "TACAGACTGC",
-    "AAAAATACC",
-    "CCCGCAA",
-    "CAAAC",
-    "ACACA",
-    "GGG",
-    "AC",
-    "GG"
-   ],
-   "duplex": {
-    "pairs": 24,
-    "complementary": 0,
-    "fraction": 0.0,
-    "chance": 0.22222222222222224
-   }
-  },
-  {
-   "site_events": 18,
-   "site_correct": 9,
-   "site_fidelity": 0.5,
-   "copies": 0,
-   "copy_monomers": 0,
-   "copy_matches": 0,
-   "copy_fidelity": null,
-   "copy_seqs": [],
-   "seed": 1,
-   "soup_chains": 4,
-   "soup_len_max": 27,
-   "soup_seqs": [
-    "TTAACTTTTATCTCTTCCCCTTTATTC",
-    "AAA",
-    "TAA",
-    "AA"
-   ],
+   "ligations": 0,
+   "site_events": 0,
+   "site_correct": 0,
+   "site_fidelity": null,
+   "pair_counts": {},
+   "ordered_copies": [],
+   "made_at_template": [],
+   "soup_chains": 0,
+   "soup_len_max": 0,
    "duplex": {
     "pairs": 0
-   }
+   },
+   "seed": 0
+  },
+  {
+   "ligations": 0,
+   "site_events": 0,
+   "site_correct": 0,
+   "site_fidelity": null,
+   "pair_counts": {},
+   "ordered_copies": [],
+   "made_at_template": [],
+   "soup_chains": 0,
+   "soup_len_max": 0,
+   "duplex": {
+    "pairs": 0
+   },
+   "seed": 1
+  }
+ ],
+ "medium": [
+  {
+   "ligations": 148,
+   "site_events": 46,
+   "site_correct": 12,
+   "site_fidelity": 0.2608695652173913,
+   "pair_counts": {
+    "A->A": 3,
+    "T->T": 4,
+    "G->G": 4,
+    "G->C": 4,
+    "C->C": 1,
+    "A->G": 3,
+    "A->T": 3,
+    "G->A": 7,
+    "C->T": 3,
+    "T->A": 4,
+    "T->G": 1,
+    "C->A": 5,
+    "C->G": 1,
+    "T->C": 3
+   },
+   "ordered_copies": [
+    {
+     "copy": "GAA",
+     "against": "ATT",
+     "complementary": 2,
+     "len": 3
+    },
+    {
+     "copy": "AG",
+     "against": "CA",
+     "complementary": 0,
+     "len": 2
+    },
+    {
+     "copy": "AG",
+     "against": "CA",
+     "complementary": 0,
+     "len": 2
+    },
+    {
+     "copy": "TG",
+     "against": "TG",
+     "complementary": 0,
+     "len": 2
+    },
+    {
+     "copy": "TT",
+     "against": "CT",
+     "complementary": 0,
+     "len": 2
+    },
+    {
+     "copy": "TC",
+     "against": "AT",
+     "complementary": 1,
+     "len": 2
+    },
+    {
+     "copy": "GA",
+     "against": "TA",
+     "complementary": 0,
+     "len": 2
+    },
+    {
+     "copy": "AT",
+     "against": "GA",
+     "complementary": 1,
+     "len": 2
+    },
+    {
+     "copy": "CG",
+     "against": "GG",
+     "complementary": 1,
+     "len": 2
+    },
+    {
+     "copy": "TA",
+     "against": "CG",
+     "complementary": 0,
+     "len": 2
+    },
+    {
+     "copy": "AA",
+     "against": "GC",
+     "complementary": 0,
+     "len": 2
+    },
+    {
+     "copy": "AT",
+     "against": "TT",
+     "complementary": 1,
+     "len": 2
+    },
+    {
+     "copy": "AG",
+     "against": "GC",
+     "complementary": 1,
+     "len": 2
+    }
+   ],
+   "made_at_template": [
+    "TAAGATTTTTCCCACCCAAAGGACGCGGTTTTCTGATGGGTTGTACCCCAACACAACCGGCGCGCAG",
+    "GGGGGGTTTTTTAAAAAACGCATAG",
+    "CAGCTTTTTTCG",
+    "GATATATCGCG",
+    "GATAGAA",
+    "AGAAG",
+    "TGC"
+   ],
+   "soup_chains": 14,
+   "soup_len_max": 67,
+   "duplex": {
+    "pairs": 142,
+    "complementary": 39,
+    "fraction": 0.2746478873239437,
+    "chance": 0.2404780797460821
+   },
+   "seed": 0
+  },
+  {
+   "ligations": 145,
+   "site_events": 54,
+   "site_correct": 10,
+   "site_fidelity": 0.18518518518518517,
+   "pair_counts": {
+    "G->G": 3,
+    "C->A": 5,
+    "C->C": 2,
+    "A->G": 2,
+    "A->A": 5,
+    "C->G": 3,
+    "T->T": 7,
+    "T->G": 3,
+    "C->T": 3,
+    "G->A": 7,
+    "G->T": 2,
+    "T->A": 7,
+    "A->C": 2,
+    "T->C": 3
+   },
+   "ordered_copies": [
+    {
+     "copy": "GATA",
+     "against": "GATT",
+     "complementary": 1,
+     "len": 4
+    },
+    {
+     "copy": "GTG",
+     "against": "TTA",
+     "complementary": 0,
+     "len": 3
+    },
+    {
+     "copy": "TAG",
+     "against": "TCG",
+     "complementary": 0,
+     "len": 3
+    },
+    {
+     "copy": "CA",
+     "against": "TA",
+     "complementary": 0,
+     "len": 2
+    },
+    {
+     "copy": "AC",
+     "against": "TA",
+     "complementary": 1,
+     "len": 2
+    },
+    {
+     "copy": "GA",
+     "against": "AT",
+     "complementary": 1,
+     "len": 2
+    },
+    {
+     "copy": "AC",
+     "against": "TA",
+     "complementary": 1,
+     "len": 2
+    },
+    {
+     "copy": "AA",
+     "against": "GA",
+     "complementary": 0,
+     "len": 2
+    },
+    {
+     "copy": "AG",
+     "against": "CG",
+     "complementary": 0,
+     "len": 2
+    },
+    {
+     "copy": "AA",
+     "against": "CG",
+     "complementary": 0,
+     "len": 2
+    },
+    {
+     "copy": "GT",
+     "against": "TC",
+     "complementary": 0,
+     "len": 2
+    },
+    {
+     "copy": "AA",
+     "against": "CA",
+     "complementary": 0,
+     "len": 2
+    },
+    {
+     "copy": "TT",
+     "against": "CT",
+     "complementary": 0,
+     "len": 2
+    },
+    {
+     "copy": "AT",
+     "against": "GG",
+     "complementary": 0,
+     "len": 2
+    }
+   ],
+   "made_at_template": [
+    "CCCACAAAAGAAGAACGGGGGATACACAGGGCGAC",
+    "GTTTTTCAGAACAGCGGC",
+    "GATATGTGAGACATT",
+    "AAAAAAGCTAGAAAA",
+    "TTGGAT"
+   ],
+   "soup_chains": 12,
+   "soup_len_max": 35,
+   "duplex": {
+    "pairs": 139,
+    "complementary": 34,
+    "fraction": 0.2446043165467626,
+    "chance": 0.24574297396615083
+   },
+   "seed": 1
   }
  ]
 }
