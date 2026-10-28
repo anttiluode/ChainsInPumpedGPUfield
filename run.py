@@ -137,9 +137,9 @@ def live(a):
                  f"steps/frame {spf}", f"ligations {stats['ligations']}",
                  f"chains {stats['chains']}  longest {stats['longest']}"]
         if tids:
-            lines += [f"template {a.template}", "copies on template:"] + [f"  {s}" for s in stats.get("copies", [])[:12]]
+            lines += [f"template {a.template}", "chains lying on template:"] + [f"  {s}" for s in stats.get("copies", [])[:12]]
             fid = stats.get("copy_fidelity")
-            lines.append(f"copy fidelity {fid:.2f}" if fid is not None else "copy fidelity -")
+            lines.append(f"complementary to nearest bead {fid:.2f}" if fid is not None else "complementary to nearest bead -")
         lines += ["", "A red C yellow G green T blue", "SPACE P F S +/- drag"]
         for k, ln in enumerate(lines):
             screen.blit(font.render(ln, True, (220, 220, 220)), (W + 12, 12 + 19 * k))

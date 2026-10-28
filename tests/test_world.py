@@ -79,3 +79,19 @@ def test_unheld_monomers_never_link():
     for _ in range(200):
         w.step()
     assert w.ligations == 0
+
+
+def test_no_bond_after_the_pair_has_left():
+    # a pair builds up a score at the backbone spacing, then is moved apart: it must not link
+    cfg = Config(N=32, device="cpu", kT=0.0, p_lig=1.0, lig_every=1, lig_score=5,
+                 pump_on=False, held_min=-1.0, mobility=0.0)
+    w = World(cfg)
+    w.add_monomers([0, 3], pos=[(10, 16), (13.6, 16)])
+    cfg.p_lig = 0.0
+    for _ in range(10):          # score climbs to ~10 but linking is switched off
+        w.step()
+    w.pos[1, 0] = 20.0           # pull them apart
+    cfg.p_lig = 1.0
+    for _ in range(3):
+        w.step()
+    assert w.ligations == 0

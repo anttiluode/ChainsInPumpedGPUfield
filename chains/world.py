@@ -316,11 +316,15 @@ class World:
         cand = torch.nonzero(ok).cpu().numpy()
         fi_np = fi.cpu().numpy()
         held = {k: v * cfg.lig_decay for k, v in self.held.items() if v * cfg.lig_decay > 0.5}
+        now = set()
         for a, b in cand:
             key = (int(fi_np[a]), int(fi_np[b]))
             held[key] = held.get(key, 0.0) + 1.0
+            now.add(key)
         self.held = held
-        ready = [k for k, n in held.items() if n >= cfg.lig_score]
+        # only pairs that are at the backbone spacing AND both held right now may link
+        # (the score remembers the past, but a bond is made in the present)
+        ready = [k for k in now if held[k] >= cfg.lig_score]
         if not ready:
             return
         cid = self.chain_ids()
