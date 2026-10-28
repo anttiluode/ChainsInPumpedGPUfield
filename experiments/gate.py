@@ -19,7 +19,7 @@ import argparse, json, os, sys, time
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import numpy as np
 from chains import Config, World
-from chains.analysis import complement_map, nearest, copies_on_template, chain_report
+from chains.analysis import complement_map, nearest, copies_on_template, chain_report, duplex_report
 
 TEMPLATE = "GATTACAG"
 
@@ -67,6 +67,7 @@ def run_round(cfg, template, n_each, steps, log_every=2000, label=""):
                   f"template-site events={len(events)} ({time.time()-t0:.0f}s)", flush=True)
     copies = copies_on_template(w, tids, scoring)
     soup = chain_report(w, exclude=tids)
+    w.duplex = duplex_report(w, scoring, exclude=tids)
     return w, events, copies, soup
 
 
@@ -102,6 +103,8 @@ def main():
             r["seed"] = s
             r["soup_chains"] = len(soup)
             r["soup_len_max"] = max([c["len"] for c in soup], default=0)
+            r["soup_seqs"] = sorted([c["seq"] for c in soup], key=len, reverse=True)[:20]
+            r["duplex"] = w.duplex
             if a.round2 and arm == "receiver" and cp:
                 best = max(cp, key=lambda c: (c["len"], c["match"]))
                 tmpl2 = best["seq"]
@@ -112,6 +115,7 @@ def main():
                     r2["template"] = tmpl2
                     r["round2"] = r2
             res[arm].append(r)
+            print(f"{arm} seed {s}: duplex {w.duplex}", flush=True)
             print(f"{arm} seed {s}: site fidelity {r['site_fidelity']} over {r['site_events']} events; "
                   f"copies {r['copies']} ({r['copy_matches']}/{r['copy_monomers']} complementary)", flush=True)
             json.dump(res, open(a.out, "w"), indent=1)

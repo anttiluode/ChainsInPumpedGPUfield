@@ -63,3 +63,35 @@ def copies_on_template(world, template_ids, cmap, max_r=2.8):
         out.append({"seq": seq, "against": against, "match": ok, "len": len(path),
                     "template_pos": tpos})
     return out
+
+
+def duplex_report(world, cmap, max_r=2.6, exclude=()):
+    """Do chains lie against complementary chains? For every monomer that is in a chain, find
+    the nearest monomer that is in a DIFFERENT chain (within max_r). Count how often the two
+    letters are complements. The chance level for these same letters is computed by pairing
+    the observed letters at random (sum over letters of p(a) * p(complement of a))."""
+    cid = world.chain_ids()
+    nb = world.nb.cpu().numpy()
+    inchain = (nb >= 0).any(1)
+    ex = set(exclude)
+    idx = [i for i in range(world.P) if inchain[i] and i not in ex]
+    if len(idx) < 2:
+        return {"pairs": 0}
+    pos = world.pos[torch.as_tensor(idx, device=world.device)]
+    d = world._delta(pos[:, None, :], pos[None, :, :]).norm(dim=-1)
+    cc = torch.as_tensor(cid[idx], device=world.device)
+    d[cc[:, None] == cc[None, :]] = float("inf")
+    r, k = d.min(1)
+    typ = world.typ.cpu().numpy()
+    L = world.letters
+    a_l, b_l = [], []
+    for n, (rr, kk) in enumerate(zip(r.tolist(), k.tolist())):
+        if rr <= max_r:
+            a_l.append(L[typ[idx[n]]]); b_l.append(L[typ[idx[kk]]])
+    if not a_l:
+        return {"pairs": 0}
+    ok = sum(cmap.get(a) == b for a, b in zip(a_l, b_l))
+    allv = a_l + b_l
+    p = {x: allv.count(x) / len(allv) for x in set(allv)}
+    chance = sum(p[x] * p.get(cmap.get(x), 0) for x in p)
+    return {"pairs": len(a_l), "complementary": ok, "fraction": ok / len(a_l), "chance": chance}

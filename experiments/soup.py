@@ -1,7 +1,7 @@
 """Stage 1: a soup with no template. Do bonded chains form, and what are they made of?
 
 For every backbone bond we record the two letters it joins. With the pump off, pairing
-forces vanish and only chance encounters that happen to last lig_hold steps can link.
+forces vanish and only chance encounters that keep returning to the backbone spacing can link.
 With the pump on, complementary pairs hold monomers near each other, so we look at
 which letter pairs end up adjacent along chains.
 

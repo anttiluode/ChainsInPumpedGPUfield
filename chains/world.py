@@ -106,6 +106,7 @@ class World:
         self.theta = torch.zeros(n, device=d)
         self.typ = torch.zeros(n, dtype=torch.long, device=d)
         self.nb = torch.full((n, 2), -1, dtype=torch.long, device=d)
+        self.held_by = torch.zeros(n, device=d)
         self.pinned = torch.zeros(n, dtype=torch.bool, device=d)
         self.field_force = torch.zeros(n, 2, device=d)
         self.P = n
@@ -126,6 +127,7 @@ class World:
         self.theta = torch.cat([self.theta, theta])
         self.typ = torch.cat([self.typ, types])
         self.nb = torch.cat([self.nb, torch.full((n, 2), -1, dtype=torch.long, device=self.device)])
+        self.held_by = torch.cat([self.held_by, torch.zeros(n, device=self.device)])
         self.pinned = torch.cat([self.pinned, torch.zeros(n, dtype=torch.bool, device=self.device)])
         self.field_force = torch.cat([self.field_force, torch.zeros(n, 2, device=self.device)])
         self.P += n
@@ -197,6 +199,10 @@ class World:
             hy = (gy.flatten()[idx] * w).sum(1)
             om = self.freqs[self.typ]
             q = torch.cos(self.theta)
+            # how strongly this monomer is held: running average of the pumped drive it hears
+            # in phase with its own oscillation (the same product that makes the pairing force)
+            a = 1.0 / cfg.held_tau
+            self.held_by = (1 - a) * self.held_by + a * (c * hear * q)
 
             # ---- phase: driven-oscillator phase reduction
             noise = torch.randn(P, generator=self.gen, device=self.device) * cfg.phase_noise
@@ -213,7 +219,8 @@ class World:
 
             # ---- emission (with the phase used this step)
             src = torch.zeros(N * N, device=self.device)
-            src.index_add_(0, idx.flatten(), (cfg.g_emit * q[:, None] * w).flatten())
+            gain = cfg.g_emit * (1 + cfg.chain_boost * (self.nb >= 0).sum(1).float() / 2)
+            src.index_add_(0, idx.flatten(), (gain[:, None] * q[:, None] * w).flatten())
             src = src.view(N, N)
         else:
             src = 0.0
@@ -289,12 +296,16 @@ class World:
         return np.array([find(i) for i in range(P)])
 
     def _ligate(self):
-        """Type-blind ligation. Two monomers with a free end that have stayed at the backbone
-        spacing d0 (within lig_window) for lig_hold steps link with probability p_lig per check.
-        A random encounter passes through the window in tens of steps; neighbours held on a
-        template sit there for thousands. Letters are never looked at."""
+        """Type-blind ligation. Each pair of free ends keeps a leaky score: +1 for every check
+        spent at the backbone spacing d0 (within lig_window), times lig_decay per check. Past
+        lig_score they link with probability p_lig per check. Only monomers that are being HELD
+        take part: their running average of the pumped drive they hear in phase with their own
+        oscillation (held_by) must exceed held_min. A free monomer averages near zero; one locked
+        to a complementary partner does not. A random encounter scores a few
+        points and drifts off; neighbours held on a template keep returning to the spacing.
+        Letters are never looked at."""
         cfg = self.cfg
-        free = (self.nb < 0).any(1)
+        free = (self.nb < 0).any(1) & (self.held_by > cfg.held_min)
         fi = torch.nonzero(free).flatten()
         if fi.numel() < 2:
             self.held = {}
@@ -304,13 +315,12 @@ class World:
         ok = torch.triu((r - cfg.d0).abs() < cfg.lig_window, diagonal=1)
         cand = torch.nonzero(ok).cpu().numpy()
         fi_np = fi.cpu().numpy()
-        need = max(1, cfg.lig_hold // cfg.lig_every)
-        held = {}
+        held = {k: v * cfg.lig_decay for k, v in self.held.items() if v * cfg.lig_decay > 0.5}
         for a, b in cand:
             key = (int(fi_np[a]), int(fi_np[b]))
-            held[key] = self.held.get(key, 0) + 1
+            held[key] = held.get(key, 0.0) + 1.0
         self.held = held
-        ready = [k for k, n in held.items() if n >= need]
+        ready = [k for k, n in held.items() if n >= cfg.lig_score]
         if not ready:
             return
         cid = self.chain_ids()

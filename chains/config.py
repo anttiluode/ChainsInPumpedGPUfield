@@ -36,6 +36,8 @@ class Config:
     # ---- monomers ----------------------------------------------------------------
     alphabet: dict = field(default_factory=lambda: dict(DEFAULT_ALPHABET))
     g_emit: float = 0.10          # how strongly a monomer writes its oscillation
+    chain_boost: float = 2.0      # bonded monomers write louder: g_emit*(1+chain_boost*bonds/2).
+                                  # Type-blind; it only asks whether a monomer is in a chain.
     g_phase: float = 0.02         # how strongly what it hears pulls its phase
     k_force: float = 1.0          # how strongly what it hears pushes it
     phase_noise: float = 0.01     # phase diffusion per step
@@ -52,9 +54,14 @@ class Config:
     d0: float = 3.0               # backbone spacing
     k_bond: float = 0.05
     k_bend: float = 0.02          # spring to second neighbours keeps chains straight
-    lig_window: float = 0.4       # two free ends with |r - d0| < window ...
-    lig_hold: int = 400           # ... continuously for this many steps ...
-    p_lig: float = 0.1            # ... then link with this probability per check
+    held_tau: float = 100.0       # steps over which "being held" is averaged
+    held_min: float = 0.025        # both monomers must be held at least this much to link
+    lig_window: float = 0.4       # two free ends at |r - d0| < window score +1 per check;
+    lig_decay: float = 0.97       # the score decays by this factor every check (memory ~330 steps)
+    lig_score: float = 6.0        # once the score passes this they may link ...
+    p_lig: float = 0.1            # ... with this probability per check.
+                                  # A passer-by scores a few points and leaves; neighbours held
+                                  # on a template keep coming back to the backbone spacing.
     lig_every: int = 10           # steps between ligation checks
 
     def to_json(self):
