@@ -1,5 +1,7 @@
 # Chains in a pumped GPU field
 
+![pic](pic.png)
+
 Oscillating monomers in a wave field, a pump at frequency 2Ω, and a single question:
 **can complementary pairing, and with it copying, come out of wave physics instead of a rule table?**
 
