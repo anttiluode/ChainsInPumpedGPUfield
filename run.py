@@ -119,7 +119,13 @@ def live(a):
                 if j > i:
                     p, q = pos[i], pos[j]
                     if np.abs(p - q).max() < N / 2:
-                        pygame.draw.line(screen, (230, 230, 230), p * scale, q * scale, 2)
+                        pygame.draw.line(
+                            screen,
+                            (230, 230, 230),
+                            (float(p[0]) * scale, float(p[1]) * scale),
+                            (float(q[0]) * scale, float(q[1]) * scale),
+                            2,
+                        )
         r = max(2, int(scale * 0.8))
         for i in range(w.P):
             col = COL[w.letters[typ[i]]]
